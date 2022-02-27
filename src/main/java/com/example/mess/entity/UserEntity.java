@@ -7,12 +7,14 @@ import lombok.Setter;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Audited
 @Setter
 @Getter
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
 
     @Id
@@ -20,30 +22,40 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username")
+    private String username;
 
-    @Column(name = "contact")
-    private String contact;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "about")
+    private String about;
 
     @Column(name = "email",unique = true)
     private String email;
 
+    @Column(name = "email_verified_at")
+    private Timestamp email_verified_date;
+
     @Column(name = "password")
     private String password;
 
-    @Column(name = "user_type")
-    private Integer userType;
+    @Column(name = "is_admin")
+    private Boolean admin;
+
+    @Column(name = "access")
+    private Boolean access;
+
+    @Column(name = "remember_token")
+    private String rememberToken;
+
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
     @Version
     private Integer version;
 
-    @Transient
-    private UserTypeEnum type;
-
-    @PrePersist
-    @PreUpdate
-    void setUserType(){
-        this.userType = type.getType();
-    }
 }

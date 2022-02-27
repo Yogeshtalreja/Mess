@@ -1,15 +1,15 @@
 package com.example.mess.controller;
 
 
+import com.example.mess.constants.Url;
 import com.example.mess.exception.GeneralException;
 import com.example.mess.model.LoginRequest;
 import com.example.mess.model.User;
 import com.example.mess.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -17,10 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService service;
+    public final static String GET_ALL_MEMBERS = "/allMembers";
+    public final static String LOGIN = "/login";
 
-    @PostMapping("/addUser")
+    @PostMapping(Url.SAVE)
     User addUser(@RequestBody User model){return service.addUser(model);}
 
-    @PostMapping("/login")
+    @PostMapping(LOGIN)
     User login(@RequestBody LoginRequest request) throws GeneralException{return service.login(request);}
+
+    @GetMapping(Url.FIND_BY_ID)
+    User findById(@PathVariable("id") Integer id) throws GeneralException {return service.findById(id);}
+
+    @DeleteMapping(Url.DELETE_BY_ID)
+    void deleteById(@PathVariable("id") Integer id)throws GeneralException{service.deleteById(id);}
+
 }
