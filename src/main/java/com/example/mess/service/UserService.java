@@ -24,6 +24,7 @@ public class UserService {
         return mapper.eToM(repository.save(mapper.mToE(model)));
     }
 
+
     public User login(LoginRequest request) throws GeneralException {
         return repository.findByEmailAndPassword(request.getEmail(),request.getPassword())
                 .map(mapper::eToM).orElseThrow(

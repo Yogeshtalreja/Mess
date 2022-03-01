@@ -3,12 +3,12 @@ package com.example.mess.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
+
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
-@Audited
 @Setter
 @Getter
 @Entity
@@ -30,6 +30,8 @@ public class MessEntity {
 
     // member_username (user ke sath relation)
 
+    @OneToOne
+    private UserEntity manager;
     // cook_username ( cooks table ke sath relation)
 
     @Version

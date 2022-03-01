@@ -3,13 +3,11 @@ package com.example.mess.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
-@Audited
+
 @Setter
 @Getter
 @Entity
@@ -28,6 +26,9 @@ public class PaymentEntity {
     private Timestamp createdAt;
 
     //member_username (relation with member user)
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private UserEntity user;
 
     // mess_id (relation with mess)
 

@@ -2,12 +2,10 @@ package com.example.mess.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Audited
 @Setter
 @Getter
 @Entity
@@ -43,6 +41,9 @@ public class GuestEntity {
     // mess_id  (relation with mess)
 
     // member_username (relation with member user)
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private UserEntity user;
 
     @Version
     private Integer version;

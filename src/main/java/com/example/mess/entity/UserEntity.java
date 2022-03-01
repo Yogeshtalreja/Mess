@@ -1,16 +1,14 @@
 package com.example.mess.entity;
 
 
-import com.example.mess.enums.UserTypeEnum;
+
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
-@Audited
+
 @Setter
 @Getter
 @Entity
@@ -22,7 +20,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "first_name")
@@ -57,5 +55,16 @@ public class UserEntity {
 
     @Version
     private Integer version;
+
+    @ManyToOne
+    @JoinColumn(name = "messes_id")
+    private MessEntity mess;
+
+    @PreUpdate
+    @PrePersist
+    void addMemberData(){
+        this.access = false;
+        this.admin = false;
+    }
 
 }
