@@ -24,8 +24,9 @@ public class UserService {
     private final UserRepository repository;
     private final UserMapper mapper;
 
-    public User addUser(User model){
-        return mapper.eToM(repository.save(mapper.mToE(model)));
+    public String addUser(User model){
+         repository.save(mapper.mToE(model));
+         return "Successful";
     }
 
 

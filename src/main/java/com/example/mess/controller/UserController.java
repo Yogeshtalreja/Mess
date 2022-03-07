@@ -21,7 +21,7 @@ public class UserController {
     public final static String LOGIN = "/login";
 
     @PostMapping(Url.SAVE)
-    User addUser(@RequestBody User model)throws GeneralException{return service.addUser(model);}
+    String addUser(@RequestBody User model)throws GeneralException{return service.addUser(model);}
 
     @PostMapping(LOGIN)
     User login(@RequestBody LoginRequest request) throws GeneralException{return service.login(request);}

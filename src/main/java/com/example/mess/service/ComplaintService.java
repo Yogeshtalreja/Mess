@@ -22,7 +22,7 @@ public class ComplaintService {
     private final ComplaintMapper mapper;
     private final UserRepository userRepository;
 
-    public Complaint save(Complaint complaint) throws GeneralException {
+    public String save(Complaint complaint) throws GeneralException {
         Date date = new Date();
         complaint.setDate(date);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -31,6 +31,7 @@ public class ComplaintService {
                 .orElseThrow(() -> new GeneralException("User Not Found")));
         ComplaintEntity entity = mapper.mToE(complaint);
         entity.setUser(optional.get());
-        return mapper.eToM(repository.save(entity));
+        repository.save(entity);
+        return "Successful";
     }
 }

@@ -18,7 +18,7 @@ public class ComplaintController {
     private final ComplaintService service;
 
     @PostMapping(Url.SAVE)
-    Complaint save(@RequestBody Complaint complaint) throws GeneralException {
+    String save(@RequestBody Complaint complaint) throws GeneralException {
         return service.save(complaint);
     }
 
