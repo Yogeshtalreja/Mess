@@ -17,7 +17,6 @@ public class User {
     private String email;
     @NotNull
     private String password;
-
-
+    private String mess_id;
 
 }

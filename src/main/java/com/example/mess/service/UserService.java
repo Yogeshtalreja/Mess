@@ -1,16 +1,20 @@
 package com.example.mess.service;
 
 
+import com.example.mess.entity.MessEntity;
+import com.example.mess.entity.UserEntity;
 import com.example.mess.enums.UserTypeEnum;
 import com.example.mess.exception.GeneralException;
 import com.example.mess.mapper.UserMapper;
 import com.example.mess.model.LoginRequest;
 import com.example.mess.model.User;
+import com.example.mess.repository.MessRepository;
 import com.example.mess.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,5 +44,6 @@ public class UserService {
         User user = this.findById(id);
         repository.deleteById(id);
     }
+
 
 }

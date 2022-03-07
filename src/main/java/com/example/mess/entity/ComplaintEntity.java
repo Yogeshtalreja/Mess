@@ -33,6 +33,12 @@ public class ComplaintEntity {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "feedback_type")
+    private String feedBackType;
+
+    @Column(name = "complaint_subject")
+    private String complaintSubject;
+
     @Column(name = "created_at")
     private Timestamp createdAt;
 
