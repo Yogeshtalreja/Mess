@@ -22,6 +22,9 @@ public class PaymentEntity {
     @Column(name = "paidamount")
     private Integer paid_amount;
 
+    @Column(name = "date")
+    private Timestamp date;
+
     @Column(name = "created_at")
     private Timestamp createdAt;
 
