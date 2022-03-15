@@ -20,9 +20,6 @@ public class GuestEntity {
     @Column(name = "num_off_guests")
     private Integer GuestsCount;
 
-    @Column(name = "last_name")
-    private String lastName;
-
     @Column(name = "date")
     private Timestamp date;
 

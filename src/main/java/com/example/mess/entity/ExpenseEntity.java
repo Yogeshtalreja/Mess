@@ -31,6 +31,9 @@ public class ExpenseEntity {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    @Column(name = "date")
+    private Timestamp date;
+
     // mess_id (relation with mess)
     @ManyToOne
     @JoinColumn(name = "messes_id")
