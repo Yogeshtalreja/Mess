@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UnitOffRepository extends JpaRepository<UnitOffEntity,Integer> {
@@ -15,4 +16,5 @@ public interface UnitOffRepository extends JpaRepository<UnitOffEntity,Integer> 
     @Query("select units from UnitOffEntity units where units.date >= ?2 and units.user.id=?1 ")
     List<UnitOffEntity> findBySameMonth(Integer userId, Timestamp date);
 
+    List<UnitOffEntity> findByUserIdAndDateBetween(Integer userId, Timestamp dateBefore, Timestamp dateAfter);
 }

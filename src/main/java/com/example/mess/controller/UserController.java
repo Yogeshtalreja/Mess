@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -36,7 +37,7 @@ public class UserController {
     void deleteById(@PathVariable("id") Integer id)throws GeneralException{service.deleteById(id);}
 
     @PostMapping("/getReport/{userId}")
-    public void getReportByUserId(@RequestBody TimeStamp timeStamp,  @PathVariable("userId") Integer userId, HttpServletResponse response) throws IOException, GeneralException {
+    public void getReportByUserId(@RequestBody TimeStamp timeStamp, @PathVariable("userId") Integer userId, HttpServletResponse response) throws IOException, GeneralException {
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=pdf_"+userId+".pdf";

@@ -13,4 +13,5 @@ public interface GuestRepository extends JpaRepository<GuestEntity,Integer> {
     @Query("select units from GuestEntity units where units.date >= ?2 and units.user.id=?1 ")
     List<GuestEntity> findBySameMonth(Integer userId, Timestamp date);
 
+    List<GuestEntity> findAllByUserIdAndDateBetween(Integer userId , Timestamp dateBefore, Timestamp dateAfter);
 }

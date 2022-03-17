@@ -2,13 +2,17 @@ package com.example.mess.service;
 
 
 
+import com.example.mess.entity.GuestEntity;
 import com.example.mess.entity.UnitEntity;
+import com.example.mess.entity.UnitOffEntity;
 import com.example.mess.entity.UserEntity;
 import com.example.mess.exception.GeneralException;
 import com.example.mess.mapper.UserMapper;
 import com.example.mess.model.LoginRequest;
 import com.example.mess.model.TimeStamp;
 import com.example.mess.model.User;
+import com.example.mess.repository.GuestRepository;
+import com.example.mess.repository.UnitOffRepository;
 import com.example.mess.repository.UnitsRepository;
 import com.example.mess.repository.UserRepository;
 import com.lowagie.text.*;
@@ -23,11 +27,10 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 @AllArgsConstructor
@@ -36,6 +39,9 @@ public class UserService {
     private final UserRepository repository;
     private final UserMapper mapper;
     private final UnitsRepository unitsRepository;
+    private final UnitOffRepository unitOffRepository;
+    private final GuestRepository guestRepository;
+
     public String addUser(User model){
          repository.save(mapper.mToE(model));
          return "Successful";
@@ -77,8 +83,8 @@ public class UserService {
         Paragraph paragraph = new Paragraph("Report For "+userEntity.get().getUsername()+" ",fontTitle);
         paragraph.setAlignment(Paragraph.ALIGN_CENTER);
 
-        Font fontParagraph = FontFactory.getFont(FontFactory.COURIER);
-        fontParagraph.setSize(12);
+        document.add(paragraph);
+
 
         PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(100f);
@@ -88,6 +94,8 @@ public class UserService {
         writeTableHeader(table);
         writeTableData(userId,table, timeStamp.getDateBefore(), timeStamp.getDateAfter());
 
+        document.add(table);
+        document.close();
     }
 
     public void writeTableHeader(PdfPTable table){
@@ -116,13 +124,63 @@ public class UserService {
 
     public void writeTableData(Integer userId, PdfPTable table, Timestamp dateBefore, Timestamp dateAfter){
 
-        List<UnitEntity> entities = unitsRepository.findByUserIdAndDateBetweenOrderByDateAsc(userId, dateBefore, dateAfter);
+        Font fontParagraph = FontFactory.getFont(FontFactory.COURIER);
+        fontParagraph.setSize(12);
 
-        entities.forEach(unitEntity -> {
-            table.addCell(unitEntity.getDate().toString());
-            table.addCell(unitEntity.getUnits().toString());
-            table.addCell(unitEntity.getUnits().toString());
-            table.addCell(unitEntity.getUnits().toString());
-        });
+
+
+        List<UnitEntity> entities = unitsRepository.findByUserIdAndDateBetweenOrderByDateAsc(userId, dateBefore, dateAfter);
+        for (UnitEntity entity : entities){
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            timestamp.setHours(0);
+            timestamp.setMinutes(0);
+            timestamp.setSeconds(0);
+            timestamp.setDate(entity.getDate().getDate());
+
+            Timestamp timestampTwo = new Timestamp(System.currentTimeMillis());
+            timestampTwo.setHours(23);
+            timestampTwo.setMinutes(59);
+            timestampTwo.setSeconds(59);
+            timestampTwo.setDate(timestamp.getDate());
+
+            int unitOff = 0;
+            int guestUnits = 0;
+            List<UnitOffEntity> unitOffEntities = unitOffRepository.findByUserIdAndDateBetween(userId,timestamp,timestampTwo);
+            if (unitOffEntities!=null){
+
+                for (UnitOffEntity unitOffEntity: unitOffEntities){
+                    if (unitOffEntity.getDinner()){
+                        unitOff = unitOff + 1;
+                    }
+                    if (unitOffEntity.getLunch()){
+                        unitOff = unitOff + 1;
+                    }
+                    if (unitOffEntity.getBreakfast()){
+                        unitOff = unitOff + 1;
+                    }
+
+                }
+
+            }
+
+            List<GuestEntity> guestEntities = guestRepository.findAllByUserIdAndDateBetween(userId,timestamp,timestampTwo);
+            if (guestEntities!=null){
+               for (GuestEntity guestEntity : guestEntities){
+                   if (guestEntity.getInDinner()){
+                       guestUnits = guestUnits + 1;
+                   }
+                   if (guestEntity.getInLunch()){
+                       guestUnits = guestUnits + 1;
+                   }
+                   if (guestEntity.getInBreakfast()){
+                       guestUnits = guestUnits + 1;
+                   }
+               }
+            }
+            table.addCell(""+entity.getDate());
+            table.addCell(String.valueOf(entity.getUnits() - guestUnits));
+            table.addCell(String.valueOf(unitOff));
+            table.addCell(String.valueOf(guestUnits));
+        }
     }
 }
