@@ -17,4 +17,5 @@ public interface UnitsRepository extends JpaRepository<UnitEntity,Integer> {
     @Query("select units from UnitEntity units where units.date >= ?2 and units.user.mess.id = ?1 ")
     List<UnitEntity> findUnitsOfMessByMonth(String messId, Timestamp date);
 
+    List<UnitEntity> findByUserIdAndDateBetweenOrderByDateAsc(Integer userId, Timestamp dateBefore, Timestamp dateAfter);
 }
