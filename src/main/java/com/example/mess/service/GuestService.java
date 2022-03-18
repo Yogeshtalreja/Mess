@@ -29,7 +29,6 @@ public class GuestService {
         }
         GuestEntity entity = mapper.mToE(model);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        entity.setDate(timestamp);
         entity.setCreatedAt(timestamp);
         return mapper.eToM(repository.save(entity));
     }
