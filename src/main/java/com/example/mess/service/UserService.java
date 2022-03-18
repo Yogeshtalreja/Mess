@@ -2,19 +2,13 @@ package com.example.mess.service;
 
 
 
-import com.example.mess.entity.GuestEntity;
-import com.example.mess.entity.UnitEntity;
-import com.example.mess.entity.UnitOffEntity;
-import com.example.mess.entity.UserEntity;
+import com.example.mess.entity.*;
 import com.example.mess.exception.GeneralException;
 import com.example.mess.mapper.UserMapper;
 import com.example.mess.model.LoginRequest;
 import com.example.mess.model.TimeStamp;
 import com.example.mess.model.User;
-import com.example.mess.repository.GuestRepository;
-import com.example.mess.repository.UnitOffRepository;
-import com.example.mess.repository.UnitsRepository;
-import com.example.mess.repository.UserRepository;
+import com.example.mess.repository.*;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.pdf.PdfPCell;
@@ -41,9 +35,17 @@ public class UserService {
     private final UnitsRepository unitsRepository;
     private final UnitOffRepository unitOffRepository;
     private final GuestRepository guestRepository;
+    private final MessRepository messRepository;
 
-    public String addUser(User model){
-         repository.save(mapper.mToE(model));
+    public String addUser(User model) throws GeneralException {
+
+        Optional<MessEntity> messEntity = messRepository.findById(model.getMess_id());
+        if (messEntity.isEmpty()){
+            throw new GeneralException("Mess With This ID Not Found");
+        }
+        UserEntity entity = mapper.mToE(model);
+        entity.setMess(messEntity.get());
+         repository.save(entity);
          return "Successful";
     }
 
