@@ -51,9 +51,13 @@ public class UserService {
 
 
     public User login(LoginRequest request) throws GeneralException {
-        return repository.findByEmailAndPassword(request.getEmail(),request.getPassword())
-                .map(mapper::eToM).orElseThrow(
-                        ()-> new GeneralException("Invalid Credentials"));
+        Optional<UserEntity> optional = repository.findByEmailAndPassword(request.getEmail(),request.getPassword());
+        if (optional.isEmpty()){
+            throw new GeneralException("Invalid Credentials");
+        }
+        User user = mapper.eToM(optional.get());
+        user.setMess_id(optional.get().getMess().getId());
+        return user;
     }
 
     public User findById(Integer id) throws GeneralException {
