@@ -28,6 +28,7 @@ public class GuestService {
             throw new GeneralException("User with this ID Not Found");
         }
         GuestEntity entity = mapper.mToE(model);
+        entity.setUser(user.get());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         entity.setCreatedAt(timestamp);
         return mapper.eToM(repository.save(entity));
