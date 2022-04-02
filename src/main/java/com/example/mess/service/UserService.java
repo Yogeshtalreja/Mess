@@ -133,7 +133,6 @@ public class UserService {
         fontParagraph.setSize(12);
 
 
-
         List<UnitEntity> entities = unitsRepository.findByUserIdAndDateBetweenOrderByDateAsc(userId, dateBefore, dateAfter);
         for (UnitEntity entity : entities){
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());

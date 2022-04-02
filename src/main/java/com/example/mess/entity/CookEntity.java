@@ -30,10 +30,6 @@ public class CookEntity {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-   @ManyToOne
-   @JoinColumn(name = "messes_id")
-   private MessEntity mess;
-
     @Version
     private Integer version;
 }

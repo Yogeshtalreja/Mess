@@ -3,6 +3,7 @@ package com.example.mess.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

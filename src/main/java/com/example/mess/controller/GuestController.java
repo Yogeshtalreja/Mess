@@ -17,7 +17,7 @@ public class GuestController {
     private final GuestService service;
 
     @PostMapping("/addGuest")
-    Guest addGuest(@RequestBody Guest model) throws GeneralException {
+    String addGuest(@RequestBody Guest model) throws GeneralException {
         return service.addGuest(model);
     }
 }

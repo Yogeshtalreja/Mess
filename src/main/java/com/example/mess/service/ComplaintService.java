@@ -11,8 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -23,8 +21,6 @@ public class ComplaintService {
     private final UserRepository userRepository;
 
     public String save(Complaint complaint) throws GeneralException {
-        Date date = new Date();
-        complaint.setDate(date);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         complaint.setCreatedAt(timestamp);
         Optional<UserEntity> optional = Optional.ofNullable(userRepository.findById(complaint.getUserId())

@@ -6,8 +6,8 @@ import lombok.Setter;
 import java.sql.Timestamp;
 import java.util.Date;
 
-@Getter
 @Setter
+@Getter
 public class Complaint {
 
     private Integer id;

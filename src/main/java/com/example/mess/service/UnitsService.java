@@ -137,6 +137,9 @@ public class UnitsService {
         for(UnitEntity entity: entities){
             totalUnits = totalUnits + entity.getUnits();
         }
+        if (totalMessAmount==0 || totalUnits== 0 ) {
+            return 0.0;
+        }
 
         return Double.valueOf(totalMessAmount / totalUnits);
     }

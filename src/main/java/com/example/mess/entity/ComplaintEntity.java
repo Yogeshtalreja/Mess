@@ -9,9 +9,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 
-
-@Setter
 @Getter
+@Setter
 @Entity
 @Table(name = "complaints")
 public class ComplaintEntity {

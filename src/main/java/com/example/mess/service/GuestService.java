@@ -21,8 +21,7 @@ public class GuestService {
     private final UserRepository userRepository;
     private final GuestMapper mapper;
 
-
-    public Guest addGuest(Guest model) throws GeneralException {
+    public String addGuest(Guest model) throws GeneralException {
         Optional<UserEntity> user = userRepository.findById(model.getUserId());
         if (user.isEmpty()){
             throw new GeneralException("User with this ID Not Found");
@@ -31,7 +30,8 @@ public class GuestService {
         entity.setUser(user.get());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         entity.setCreatedAt(timestamp);
-        return mapper.eToM(repository.save(entity));
+        repository.save(entity);
+        return "Successful";
     }
 
 }

@@ -3,13 +3,14 @@ package com.example.mess.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 @Getter
 @Setter
 public class Portals {
 
-    private Date date;
+    private Timestamp date;
     private String message;
     private String type;
     private String feedBackType;
