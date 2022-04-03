@@ -29,12 +29,17 @@ public class PaymentEntity {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    //member_username (relation with member user)
+    @Column(name = "member_username")
+    private String memberUsername;
+
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserEntity user;
+// how will be get user_id here
 
-    // mess_id (relation with mess)
+    @ManyToOne
+    @JoinColumn(name = "mess_id")
+    private MessEntity mess;
 
     @Version
     private Integer version;

@@ -27,7 +27,7 @@ public class MenuEntity {
     private String dinner;
 
     @OneToOne
-    @JoinColumn(name = "messes_id")
+    @JoinColumn(name = "mess_id")
     private MessEntity mess;
 
 }

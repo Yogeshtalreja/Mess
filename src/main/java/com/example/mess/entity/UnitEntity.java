@@ -28,11 +28,16 @@ public class UnitEntity {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    //member_username (relation with member user)
+    @Column(name = "username")
+    private String memberUsername;
+
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserEntity user;
 
+    @ManyToOne
+    @JoinColumn(name = "mess_id")
+    private MessEntity mess;
     // mess_id (relation with mess)
 
     @Version

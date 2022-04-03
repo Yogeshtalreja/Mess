@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "messes")
+@Table(name = "mess")
 public class MessEntity {
 
     @Id
@@ -30,6 +30,9 @@ public class MessEntity {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    @Column(name = "member_username")
+    private String memberUsername;
+
     // member_username (user ke sath relation)
 
     @OneToOne
@@ -42,6 +45,5 @@ public class MessEntity {
 
     @Version
     private Integer version;
-
 
 }

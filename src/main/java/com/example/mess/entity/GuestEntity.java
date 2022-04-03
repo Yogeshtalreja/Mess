@@ -35,12 +35,16 @@ public class GuestEntity {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    // mess_id  (relation with mess)
+    @Column(name = "username")
+    private String memberUsername;
 
-    // member_username (relation with member user)
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "mess_id")
+    private MessEntity mess;
 
     @Version
     private Integer version;

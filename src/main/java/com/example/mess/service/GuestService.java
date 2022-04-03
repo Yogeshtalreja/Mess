@@ -30,6 +30,8 @@ public class GuestService {
         entity.setUser(user.get());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         entity.setCreatedAt(timestamp);
+        entity.setMemberUsername(user.get().getUsername());
+        entity.setMess(user.get().getMess());
         repository.save(entity);
         return "Successful";
     }

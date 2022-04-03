@@ -27,6 +27,8 @@ public class ComplaintService {
                 .orElseThrow(() -> new GeneralException("User Not Found")));
         ComplaintEntity entity = mapper.mToE(complaint);
         entity.setUser(optional.get());
+        entity.setMemberUsername(optional.get().getUsername());
+        entity.setMess(optional.get().getMess());
         repository.save(entity);
         return "Successful";
     }

@@ -57,7 +57,6 @@ public class UserEntity {
     private Integer version;
 
     @ManyToOne
-    @JoinColumn(name = "messes_id")
     private MessEntity mess;
 
     @PreUpdate

@@ -34,13 +34,16 @@ public class UnitOffEntity {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    // mess_id  (relation with mess)
+    @Column(name = "username")
+    private String memberUsername;
 
-    // member_id (relation with member user)
+    @ManyToOne
+    @JoinColumn(name = "mess_id")
+    private MessEntity mess;
+
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserEntity user;
-
 
     @Version
     private Integer version;

@@ -53,6 +53,8 @@ public class UnitsService {
         UnitOffEntity entity = guestMapper.mToE(model);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         entity.setUser(user.get());
+        entity.setMemberUsername(user.get().getUsername());
+        entity.setMess(user.get().getMess());
         entity.setCreatedAt(timestamp);
         unitOffRepository.save(entity);
         return "Successful";
