@@ -4,6 +4,7 @@ package com.example.mess.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import netscape.javascript.JSObject;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -22,6 +23,7 @@ public class UserEntity {
 
     @Column(name = "username", unique = true)
     private String username;
+
 
     @Column(name = "first_name")
     private String firstName;
