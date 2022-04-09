@@ -28,9 +28,6 @@ public class NotificationsEntity {
     @Column(name = "readed")
     private Integer readed;
 
-    @Column(name = "message")
-    private String message;
-
     @Column(name = "created_at")
     private Timestamp createdAt;
 

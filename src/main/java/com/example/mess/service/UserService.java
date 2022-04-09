@@ -30,6 +30,8 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository repository;
+    private final NotificationRepository not_repository;
+
     private final UserMapper mapper;
     private final UnitsRepository unitsRepository;
     private final UnitOffRepository unitOffRepository;
@@ -42,18 +44,28 @@ public class UserService {
         if (messEntity.isEmpty()){
             throw new GeneralException("Mess With This ID Not Found");
         }
-        UserEntity entity = mapper.mToE(model);
-        entity.setMess(messEntity.get());
-         repository.save(entity);
+//        UserEntity entity = mapper.mToE(model);
+        NotificationsEntity notify = new NotificationsEntity();
+        notify.setMess(messEntity.get());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        notify.setCreatedAt(timestamp);
+        notify.setReaded(0);
+        not_repository.save(notify);
          return "Successful";
     }
 
 
     public User login(LoginRequest request) throws GeneralException {
+        Optional<UserEntity> record_available = repository.findByEmail(request.getEmail());
         Optional<UserEntity> optional = repository.findByEmailAndPassword(request.getEmail(),request.getPassword());
-        if (optional.isEmpty()){
+        if (record_available.isEmpty()){
+            throw new GeneralException("User request still pending");
+        }
+
+        if (record_available.isPresent() && optional.isEmpty()){
             throw new GeneralException("Invalid Credentials");
         }
+
         User user = mapper.eToM(optional.get());
         user.setMess_id(optional.get().getMess().getId());
         return user;

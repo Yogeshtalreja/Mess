@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 @Table(name = "units")
 public class UnitEntity {
 
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +33,11 @@ public class UnitEntity {
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserEntity user;
+    // user_id kadhon eendi?
 
     @ManyToOne
     @JoinColumn(name = "mess_id")
     private MessEntity mess;
-    // mess_id (relation with mess)
 
     @Version
     private Integer version;

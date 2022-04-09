@@ -44,7 +44,6 @@ public class ComplaintEntity {
     @Column(name = "username")
     private String memberUsername;
 
-    //member_username (relation with member user)
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserEntity user;
@@ -52,8 +51,6 @@ public class ComplaintEntity {
     @ManyToOne
     @JoinColumn(name = "mess_id")
     private MessEntity mess;
-
-    // mess_id (relation with mess)
 
     @Version
     private Integer version;

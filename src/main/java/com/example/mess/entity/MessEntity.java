@@ -31,9 +31,7 @@ public class MessEntity {
     private Timestamp createdAt;
 
     @Column(name = "member_username")
-    private String memberUsername;
-
-    // member_username (user ke sath relation)
+    private String memberUsername; // manager username
 
     @OneToOne
     private UserEntity manager;
