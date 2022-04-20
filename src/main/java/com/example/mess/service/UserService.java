@@ -9,6 +9,11 @@ import com.example.mess.model.LoginRequest;
 import com.example.mess.model.TimeStamp;
 import com.example.mess.model.User;
 import com.example.mess.repository.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.pdf.PdfPCell;
@@ -21,7 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -45,8 +52,22 @@ public class UserService {
             throw new GeneralException("Mess With This ID Not Found");
         }
 //        UserEntity entity = mapper.mToE(model);
+        Map<String, String> userData= new HashMap<>();
+        userData.put("username", model.getUsername());
+        userData.put("mess_id", model.getMess_id());
+        userData.put("email", model.getEmail());
+        userData.put("password", model.getPassword());
+        userData.put("contact", model.getContact());
+        String data="";
+        try {
+            data = new ObjectMapper().writeValueAsString(userData);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
         NotificationsEntity notify = new NotificationsEntity();
         notify.setMess(messEntity.get());
+        notify.setData(data);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         notify.setCreatedAt(timestamp);
         notify.setReaded(0);

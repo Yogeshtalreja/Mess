@@ -19,11 +19,9 @@ public class NotificationsEntity {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-//
-//    // json type column named data
-//    @Type(type = "json")
-//    @Column(columnDefinition = "jsonb", name = "data")
-//    private Map<String,String> data;
+
+    @Column(name = "data")
+    private String data;
 
     @Column(name = "readed")
     private Integer readed;

@@ -35,7 +35,8 @@ public class PaymentEntity {
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserEntity user;
-// how will be get user_id here
+
+//  how will we get user_id here
 
     @ManyToOne
     @JoinColumn(name = "mess_id")
