@@ -17,4 +17,6 @@ public interface UserRepository extends JpaRepository<UserEntity,Integer> {
     Integer totalUsersOfMess(String messId);
 
     Optional<UserEntity> findByEmail(String email);
+
+    Integer countDistinctByMessId(String messId);
 }

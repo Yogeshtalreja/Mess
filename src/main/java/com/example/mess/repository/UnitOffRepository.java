@@ -17,4 +17,6 @@ public interface UnitOffRepository extends JpaRepository<UnitOffEntity,Integer> 
     List<UnitOffEntity> findBySameMonth(Integer userId, Timestamp date);
 
     List<UnitOffEntity> findByUserIdAndDateBetween(Integer userId, Timestamp dateBefore, Timestamp dateAfter);
+
+    List<UnitOffEntity> findByDateBetweenAndMessId(Timestamp dateBefore, Timestamp dateAfter, String messId);
 }

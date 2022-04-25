@@ -6,10 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MessRepository extends JpaRepository<MessEntity,String> {
 
     @Query("select mess.id from MessEntity mess")
     List<String> findAllIds();
+
+    Optional<MessEntity> findByCookUsername(String username);
+
 }
